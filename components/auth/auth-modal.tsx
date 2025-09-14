@@ -13,6 +13,8 @@ import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { validateEmail, validatePassword } from '@/lib/utils/validation';
 import { LoadingSpinner } from '@/components/common/loading-spinner';
+import { useAuth } from '@/lib/hooks/use-auth';
+import { useActivityLogger } from '@/lib/hooks/use-activity-logger';
 
 interface AuthModalProps {
   mode: 'login' | 'signup' | null;
@@ -21,6 +23,8 @@ interface AuthModalProps {
 
 export function AuthModal({ mode, onClose }: AuthModalProps) {
   const [step, setStep] = useState<'auth' | 'verify' | 'onboarding'>('auth');
+  const { login } = useAuth();
+  const { logActivity } = useActivityLogger();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -79,6 +83,15 @@ export function AuthModal({ mode, onClose }: AuthModalProps) {
         setStep('verify');
         toast.success('Verification email sent! Check your inbox. 📧');
       } else {
+        // Handle login
+        await login(formData.email, formData.password);
+        
+        await logActivity(
+          'User login',
+          'auth',
+          'User successfully logged in'
+        );
+        
         // Simulate successful login
         toast.success('Welcome back! Let\'s get this bread 🚀');
         onClose();

@@ -47,6 +47,8 @@ const sidebarItems = [
   { icon: FolderOpen, label: 'Projects', href: '/projects' },
   { icon: Workflow, label: 'Automation Gallery', href: '/workflows' },
   { icon: BarChart3, label: 'Analytics', href: '/analytics' },
+  { icon: Users, label: 'Team', href: '/team' },
+  { icon: Shield, label: 'Audit Logs', href: '/audit' },
   { icon: CreditCard, label: 'Billing', href: '/billing' },
   { icon: Settings, label: 'Settings', href: '/settings' },
 ];

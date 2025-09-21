@@ -106,32 +106,6 @@ export function LandingPage() {
     return () => clearInterval(interval);
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const handleWatchDemo = () => {
-    // In a real app, this would open a video modal or redirect to a demo page
-    window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
-  };
-
-  const handleContactSales = () => {
-    // In a real app, this would open a contact form or redirect to a contact page
-    window.open('mailto:sales@shipra.ai?subject=Sales Inquiry', '_blank');
-  };
-
-  const handleSocialLink = (platform: string) => {
-    const urls = {
-      twitter: 'https://twitter.com/shipraai',
-      linkedin: 'https://linkedin.com/company/shipraai',
-      github: 'https://github.com/shipraai'
-    };
-    window.open(urls[platform as keyof typeof urls], '_blank');
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900/20 to-blue-900/20 relative overflow-hidden">
       {/* Integration Tools Background - Safely positioned behind all content */}
@@ -201,30 +175,10 @@ export function LandingPage() {
             <span className="font-bold text-xl gradient-text">Shipra AI</span>
           </div>
           <nav className="hidden md:flex items-center space-x-8">
-            <button 
-              onClick={() => scrollToSection('features')} 
-              className="text-gray-300 hover:text-white transition-colors cursor-pointer"
-            >
-              Features
-            </button>
-            <button 
-              onClick={() => scrollToSection('pricing')} 
-              className="text-gray-300 hover:text-white transition-colors cursor-pointer"
-            >
-              Pricing
-            </button>
-            <button 
-              onClick={() => scrollToSection('testimonials')} 
-              className="text-gray-300 hover:text-white transition-colors cursor-pointer"
-            >
-              Reviews
-            </button>
-            <button 
-              onClick={() => scrollToSection('faq')} 
-              className="text-gray-300 hover:text-white transition-colors cursor-pointer"
-            >
-              FAQ
-            </button>
+            <a href="#features" className="text-gray-300 hover:text-white transition-colors">Features</a>
+            <a href="#pricing" className="text-gray-300 hover:text-white transition-colors">Pricing</a>
+            <a href="#testimonials" className="text-gray-300 hover:text-white transition-colors">Reviews</a>
+            <a href="#faq" className="text-gray-300 hover:text-white transition-colors">FAQ</a>
           </nav>
           <div className="flex items-center space-x-4">
             <Button 
@@ -278,7 +232,6 @@ export function LandingPage() {
                 size="lg" 
                 variant="outline" 
                 className="text-xl px-12 py-6 border-purple-500/50 hover:bg-purple-500/10 hover-scale"
-                onClick={handleWatchDemo}
               >
                 <Play className="mr-3 w-6 h-6" />
                 Watch Demo
@@ -606,7 +559,7 @@ export function LandingPage() {
                         ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700' 
                         : 'bg-white/10 hover:bg-white/20 border border-white/20'
                     }`}
-                    onClick={() => plan.name === 'Enterprise' ? handleContactSales() : setAuthModal('signup')}
+                    onClick={() => setAuthModal('signup')}
                   >
                     {plan.name === 'Enterprise' ? 'Contact Sales' : 'Get Started'}
                   </Button>
@@ -696,7 +649,6 @@ export function LandingPage() {
                 size="lg"
                 variant="outline" 
                 className="text-xl px-12 py-6 border-white/20 hover:bg-white/10 text-gray-300 hover:text-white"
-                onClick={handleContactSales}
               >
                 <Headphones className="mr-3 w-6 h-6" />
                 Talk to Sales
@@ -724,8 +676,8 @@ export function LandingPage() {
             <div>
               <h4 className="font-semibold text-white mb-4">Product</h4>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li><button onClick={() => scrollToSection('features')} className="hover:text-white transition-colors">Features</button></li>
-                <li><button onClick={() => scrollToSection('pricing')} className="hover:text-white transition-colors">Pricing</button></li>
+                <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Integrations</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">API</a></li>
               </ul>
@@ -736,7 +688,7 @@ export function LandingPage() {
                 <li><a href="#" className="hover:text-white transition-colors">About</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
-                <li><button onClick={handleContactSales} className="hover:text-white transition-colors">Contact</button></li>
+                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
               </ul>
             </div>
             <div>

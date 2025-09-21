@@ -47,8 +47,6 @@ const sidebarItems = [
   { icon: FolderOpen, label: 'Projects', href: '/projects' },
   { icon: Workflow, label: 'Automation Gallery', href: '/workflows' },
   { icon: BarChart3, label: 'Analytics', href: '/analytics' },
-  { icon: Users, label: 'Team', href: '/team' },
-  { icon: Shield, label: 'Audit Logs', href: '/audit' },
   { icon: CreditCard, label: 'Billing', href: '/billing' },
   { icon: Settings, label: 'Settings', href: '/settings' },
 ];
@@ -61,16 +59,6 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   const handleLogout = () => {
     // In a real app, you'd clear auth tokens here
     router.push('/');
-  };
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Implement search functionality
-  };
-
-  const handleNotificationClick = () => {
-    // Handle notification click
-    console.log('Notifications clicked');
   };
 
   return (
@@ -118,7 +106,6 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                           : "hover:bg-white/10 text-gray-300 hover:text-white"
                       )}
                       style={{ animationDelay: `${index * 0.1}s` }}
-                      onClick={() => setSidebarOpen(false)}
                     >
                       <item.icon className="w-5 h-5 mr-3" />
                       {item.label}
@@ -130,11 +117,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
             <div className="mt-8 pt-4 border-t border-white/10">
               <Link href="/help">
-                <Button 
-                  variant="ghost" 
-                  className="w-full justify-start h-12 text-gray-300 hover:text-white hover:bg-white/10 hover-scale"
-                  onClick={() => setSidebarOpen(false)}
-                >
+                <Button variant="ghost" className="w-full justify-start h-12 text-gray-300 hover:text-white hover:bg-white/10 hover-scale">
                   <HelpCircle className="w-5 h-5 mr-3" />
                   Help & Support
                 </Button>
@@ -172,13 +155,13 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </Button>
             
-            <form onSubmit={handleSearch} className="relative">
+            <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
               <Input 
                 placeholder="Search automations, projects..." 
                 className="pl-10 w-64 hidden sm:block bg-white/5 border-white/20 text-white placeholder:text-gray-400 focus:border-purple-500"
               />
-            </form>
+            </div>
           </div>
 
           <div className="flex items-center space-x-3">
@@ -187,12 +170,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               Professional Plan
             </Badge>
             
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              className="relative text-gray-300 hover:text-white hover:bg-white/10 hover-scale"
-              onClick={handleNotificationClick}
-            >
+            <Button variant="ghost" size="sm" className="relative text-gray-300 hover:text-white hover:bg-white/10 hover-scale">
               <Bell className="w-4 h-4" />
               <div className="absolute -top-1 -right-1 w-2 h-2 bg-gradient-to-r from-pink-500 to-red-500 rounded-full animate-pulse"></div>
             </Button>

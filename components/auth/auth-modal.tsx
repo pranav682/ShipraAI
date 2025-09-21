@@ -13,8 +13,6 @@ import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { validateEmail, validatePassword } from '@/lib/utils/validation';
 import { LoadingSpinner } from '@/components/common/loading-spinner';
-import { useAuth } from '@/lib/hooks/use-auth';
-import { useActivityLogger } from '@/lib/hooks/use-activity-logger';
 
 interface AuthModalProps {
   mode: 'login' | 'signup' | null;
@@ -23,8 +21,6 @@ interface AuthModalProps {
 
 export function AuthModal({ mode, onClose }: AuthModalProps) {
   const [step, setStep] = useState<'auth' | 'verify' | 'onboarding'>('auth');
-  const { login } = useAuth();
-  const { logActivity } = useActivityLogger();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -83,15 +79,6 @@ export function AuthModal({ mode, onClose }: AuthModalProps) {
         setStep('verify');
         toast.success('Verification email sent! Check your inbox. 📧');
       } else {
-        // Handle login
-        await login(formData.email, formData.password);
-        
-        await logActivity(
-          'User login',
-          'auth',
-          'User successfully logged in'
-        );
-        
         // Simulate successful login
         toast.success('Welcome back! Let\'s get this bread 🚀');
         onClose();
@@ -158,23 +145,6 @@ export function AuthModal({ mode, onClose }: AuthModalProps) {
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }));
     }
-  };
-
-  const switchMode = () => {
-    // Switch between login and signup modes
-    const newMode = mode === 'login' ? 'signup' : 'login';
-    setStep('auth');
-    setErrors({});
-    setFormData({
-      email: '',
-      password: '',
-      firstName: '',
-      lastName: '',
-      company: ''
-    });
-    // We can't directly change the mode prop, so we'll close and let parent handle
-    onClose();
-    // In a real app, you'd have a way to switch modes
   };
 
   if (!mode) return null;
@@ -341,9 +311,9 @@ export function AuthModal({ mode, onClose }: AuthModalProps) {
 
               <p className="text-center text-sm text-gray-400 mt-4">
                 {mode === 'login' ? (
-                  <>Don't have an account? <button onClick={switchMode} className="text-purple-400 hover:text-purple-300 hover:underline transition-colors">Sign up</button></>
+                  <>Don't have an account? <button className="text-purple-400 hover:text-purple-300 hover:underline transition-colors">Sign up</button></>
                 ) : (
-                  <>Already have an account? <button onClick={switchMode} className="text-purple-400 hover:text-purple-300 hover:underline transition-colors">Sign in</button></>
+                  <>Already have an account? <button className="text-purple-400 hover:text-purple-300 hover:underline transition-colors">Sign in</button></>
                 )}
               </p>
             </div>

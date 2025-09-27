@@ -175,16 +175,13 @@ export function DashboardContent() {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div>
-                  <CardTitle className="text-2xl font-bold text-white flex items-center">
+                  <CardTitle className="text-xl font-bold text-white flex items-center">
                     <Rocket className="w-6 h-6 mr-2 text-blue-500" />
-                    Your Live Automations
+                    Live Automations
                   </CardTitle>
-                  <CardDescription className="text-gray-300">
-                    Custom automations we've built and deployed for your business
-                  </CardDescription>
                 </div>
-                <Button variant="outline" size="sm" className="border-white/20 hover:bg-white/10 text-gray-300 hover:text-white hover-scale">
-                  View All Results
+                <Button variant="outline" size="sm" className="border-white/20 hover:bg-white/10 text-gray-300 hover:text-white">
+                  View All
                 </Button>
               </div>
             </CardHeader>
@@ -199,46 +196,25 @@ export function DashboardContent() {
                     <div className="flex-1">
                       <div className="flex items-center space-x-3 mb-3">
                         <h4 className="font-semibold text-white text-lg transition-all duration-300 group-hover:gradient-text">{automation.name}</h4>
-                        <Badge 
-                          className={
-                            automation.status === 'active' 
-                              ? 'bg-gradient-to-r from-green-500/20 to-blue-500/20 text-green-300 border-green-500/30' 
-                              : 'bg-gradient-to-r from-yellow-500/20 to-orange-500/20 text-yellow-300 border-yellow-500/30'
-                          }
-                        >
+                        <Badge className="bg-gradient-to-r from-green-500/20 to-blue-500/20 text-green-300 border-green-500/30">
                           {automation.status === 'active' ? (
                             <CheckCircle className="w-3 h-3 mr-1" />
                           ) : (
                             <AlertCircle className="w-3 h-3 mr-1" />
                           )}
-                          {automation.status === 'active' ? 'Live' : 'Maintenance'}
+                          Live
                         </Badge>
-                        <Badge variant="outline" className="border-purple-500/30 text-purple-300">{automation.type}</Badge>
                       </div>
-                      <p className="text-sm text-gray-300 mb-4">{automation.description}</p>
-                      <div className="grid grid-cols-2 gap-4 text-xs text-gray-400">
-                        <div>
-                          <span>Delivered: <span className="text-gray-300">{new Date(automation.deliveredDate).toLocaleDateString()}</span></span>
-                        </div>
-                        <div>
-                          <span>Success Rate: <span className="text-green-400 font-medium">{automation.successRate}%</span></span>
-                        </div>
-                        <div>
-                          <span>Last Run: <span className="text-gray-300">{automation.lastRun}</span></span>
-                        </div>
-                        <div>
-                          <span>Data Generated: <span className="text-blue-400 font-medium">{automation.dataGenerated}</span></span>
-                        </div>
+                      <p className="text-sm text-gray-300 mb-3">{automation.description}</p>
+                      <div className="flex items-center space-x-4 text-xs text-gray-400">
+                        <span>Success: <span className="text-green-400">{automation.successRate}%</span></span>
+                        <span>Last run: <span className="text-gray-300">{automation.lastRun}</span></span>
                       </div>
                     </div>
-                    <div className="flex flex-col space-y-2">
-                      <Button size="sm" className="btn-glow bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 hover-scale">
+                    <div className="flex space-x-2">
+                      <Button size="sm" className="btn-glow bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
                         <Eye className="w-4 h-4 mr-2" />
-                        View Data
-                      </Button>
-                      <Button variant="outline" size="sm" className="border-white/20 hover:bg-white/10 text-gray-300 hover:text-white hover-scale">
-                        <Download className="w-4 h-4 mr-2" />
-                        Export
+                        View
                       </Button>
                     </div>
                   </div>
@@ -253,11 +229,10 @@ export function DashboardContent() {
           {/* Pending Requests */}
           <Card className="glass-effect border-white/10 animate-slide-up">
             <CardHeader>
-              <CardTitle className="text-xl font-bold text-white flex items-center">
+              <CardTitle className="text-lg font-bold text-white flex items-center">
                 <MessageSquare className="w-5 h-5 mr-2 text-orange-500" />
-                Automation Requests
+                Recent Requests
               </CardTitle>
-              <CardDescription className="text-gray-300">Your requests being built by our team</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               {pendingRequests.map((request, index) => (
@@ -294,7 +269,7 @@ export function DashboardContent() {
               
               <Button className="w-full btn-glow bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 hover-scale">
                 <Plus className="w-4 h-4 mr-2" />
-                New Request
+                Request Automation
               </Button>
             </CardContent>
           </Card>
@@ -302,26 +277,17 @@ export function DashboardContent() {
           {/* Quick Actions */}
           <Card className="glass-effect border-white/10 animate-slide-up">
             <CardHeader>
-              <CardTitle className="text-xl font-bold text-white flex items-center">
-                <Star className="w-5 h-5 mr-2 text-yellow-500" />
+              <CardTitle className="text-lg font-bold text-white">
                 Quick Actions
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <Button variant="outline" className="w-full justify-start border-white/20 hover:bg-white/10 text-gray-300 hover:text-white hover-scale">
-                <BarChart3 className="w-4 h-4 mr-3" />
-                View Analytics Dashboard
+              <Button variant="outline" className="w-full justify-start border-white/20 hover:bg-white/10 text-gray-300 hover:text-white">
+                <Settings className="w-4 h-4 mr-3" />
+                Account Settings
               </Button>
-              <Button variant="outline" className="w-full justify-start border-white/20 hover:bg-white/10 text-gray-300 hover:text-white hover-scale">
-                <FileText className="w-4 h-4 mr-3" />
-                Download Reports
-              </Button>
-              <Button variant="outline" className="w-full justify-start border-white/20 hover:bg-white/10 text-gray-300 hover:text-white hover-scale">
-                <Mail className="w-4 h-4 mr-3" />
-                Schedule Consultation
-              </Button>
-              <Button variant="outline" className="w-full justify-start border-white/20 hover:bg-white/10 text-gray-300 hover:text-white hover-scale">
-                <Phone className="w-4 h-4 mr-3" />
+              <Button variant="outline" className="w-full justify-start border-white/20 hover:bg-white/10 text-gray-300 hover:text-white">
+                <MessageSquare className="w-4 h-4 mr-3" />
                 Contact Support
               </Button>
             </CardContent>
@@ -330,15 +296,14 @@ export function DashboardContent() {
           {/* Recent Activity */}
           <Card className="glass-effect border-white/10 animate-slide-up">
             <CardHeader>
-              <CardTitle className="text-xl font-bold text-white">Recent Activity</CardTitle>
+              <CardTitle className="text-lg font-bold text-white">Activity</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {[
-                  { color: 'bg-green-500', text: 'Lead Scoring Engine processed 247 new leads', time: '2 hours ago' },
-                  { color: 'bg-blue-500', text: 'Customer Onboarding sent 45 welcome emails', time: '3 hours ago' },
-                  { color: 'bg-purple-500', text: 'New automation request submitted', time: '1 day ago' },
-                  { color: 'bg-orange-500', text: 'Monthly report generated and sent', time: '2 days ago' }
+                  { color: 'bg-green-500', text: 'Automation processed 247 records', time: '2h ago' },
+                  { color: 'bg-blue-500', text: 'Email campaign sent successfully', time: '3h ago' },
+                  { color: 'bg-purple-500', text: 'New request submitted', time: '1d ago' }
                 ].map((activity, index) => (
                   <div key={index} className="flex items-start space-x-3 animate-slide-in" style={{ animationDelay: `${index * 0.1}s` }}>
                     <div className={`w-2 h-2 ${activity.color} rounded-full mt-2 animate-pulse`}></div>

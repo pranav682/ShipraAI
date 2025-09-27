@@ -40,17 +40,6 @@ import {
   Headphones
 } from 'lucide-react';
 
-const integrationTools = [
-  { name: 'n8n', icon: Workflow, color: 'from-red-500 to-pink-500', position: { top: '15%', left: '10%' } },
-  { name: 'Apify', icon: Database, color: 'from-blue-500 to-purple-500', position: { top: '25%', right: '15%' } },
-  { name: 'Zapier', icon: Truck, color: 'from-orange-500 to-yellow-500', position: { top: '45%', left: '8%' } },
-  { name: 'Make', icon: Settings, color: 'from-purple-500 to-indigo-500', position: { top: '60%', right: '12%' } },
-  { name: 'Webhook', icon: Webhook, color: 'from-green-500 to-teal-500', position: { top: '75%', left: '15%' } },
-  { name: 'API', icon: Code, color: 'from-cyan-500 to-blue-500', position: { top: '35%', right: '8%' } },
-  { name: 'AI', icon: Brain, color: 'from-pink-500 to-purple-500', position: { top: '55%', left: '20%' } },
-  { name: 'Analytics', icon: BarChart3, color: 'from-indigo-500 to-purple-500', position: { top: '20%', left: '25%' } }
-];
-
 const testimonials = [
   {
     name: 'Sarah Johnson',
@@ -108,63 +97,6 @@ export function LandingPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900/20 to-blue-900/20 relative overflow-hidden">
-      {/* Integration Tools Background - Safely positioned behind all content */}
-      <div className="integration-bg">
-        {integrationTools.map((tool, index) => (
-          <div key={tool.name}>
-            <div
-              className="integration-node"
-              style={{
-                ...tool.position,
-                background: `linear-gradient(135deg, var(--tw-gradient-stops))`,
-                animationDelay: `${index * 0.5}s`
-              }}
-            >
-              <tool.icon className="w-6 h-6 text-white" />
-            </div>
-            {index < integrationTools.length - 1 && (
-              <div
-                className="integration-line"
-                style={{
-                  top: `${parseInt(tool.position.top || '0')}%`,
-                  left: tool.position.left ? `${parseInt(tool.position.left)}%` : 'auto',
-                  right: tool.position.right ? `${parseInt(tool.position.right)}%` : 'auto',
-                  width: '120px',
-                  animationDelay: `${index * 0.8}s`
-                }}
-              />
-            )}
-          </div>
-        ))}
-      </div>
-
-      {/* Animated background particles - Safely positioned behind all content */}
-      <div className="particles">
-        {[...Array(30)].map((_, i) => (
-          <div
-            key={i}
-            className="particle"
-            style={{
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 20}s`,
-              animationDuration: `${15 + Math.random() * 10}s`
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Mouse follower gradient - Safely positioned behind all content */}
-      <div
-        className="fixed pointer-events-none z-0 opacity-20"
-        style={{
-          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(139, 92, 246, 0.15), transparent 40%)`,
-          left: 0,
-          top: 0,
-          width: '100vw',
-          height: '100vh',
-        }}
-      />
-
       {/* Header */}
       <header className="glass-effect sticky top-0 z-50 border-b border-white/10">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
@@ -175,10 +107,8 @@ export function LandingPage() {
             <span className="font-bold text-xl gradient-text">Shipra AI</span>
           </div>
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-gray-300 hover:text-white transition-colors">Features</a>
-            <a href="#pricing" className="text-gray-300 hover:text-white transition-colors">Pricing</a>
-            <a href="#testimonials" className="text-gray-300 hover:text-white transition-colors">Reviews</a>
-            <a href="#faq" className="text-gray-300 hover:text-white transition-colors">FAQ</a>
+            <button onClick={() => scrollToSection('features')} className="text-gray-300 hover:text-white transition-colors">Features</button>
+            <button onClick={() => scrollToSection('pricing')} className="text-gray-300 hover:text-white transition-colors">Pricing</button>
           </nav>
           <div className="flex items-center space-x-4">
             <Button 
@@ -222,19 +152,11 @@ export function LandingPage() {
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
               <Button 
                 size="lg" 
-                className="text-xl px-12 py-6 btn-glow bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 hover-scale hover-glow"
+                className="text-lg px-8 py-4 btn-glow bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
                 onClick={() => setAuthModal('signup')}
               >
-                Request Your First Automation
+                Get Started Free
                 <Rocket className="ml-3 w-6 h-6" />
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="text-xl px-12 py-6 border-purple-500/50 hover:bg-purple-500/10 hover-scale"
-              >
-                <Play className="mr-3 w-6 h-6" />
-                Watch Demo
               </Button>
             </div>
 
@@ -257,42 +179,32 @@ export function LandingPage() {
       {/* How It Works */}
       <section id="features" className="py-20 px-4 relative">
         <div className="container mx-auto">
-          <div className="text-center mb-16 animate-slide-up">
+          <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               <span className="gradient-text">How We Automate Your Business</span>
             </h2>
-            <p className="text-gray-300 text-xl max-w-3xl mx-auto">
-              Our expert team handles everything from consultation to deployment
-            </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
               {
                 step: "01",
                 title: "Request Automation",
-                description: "Tell us what you want to automate through our simple request form",
+                description: "Tell us what you want to automate",
                 icon: MessageSquare,
                 gradient: "from-blue-500 to-purple-600"
               },
               {
                 step: "02", 
-                title: "Expert Consultation",
-                description: "Our automation specialists analyze your needs and design the perfect solution",
-                icon: Users,
+                title: "We Build It",
+                description: "Our team creates your custom automation",
+                icon: Settings,
                 gradient: "from-purple-500 to-pink-600"
               },
               {
                 step: "03",
-                title: "We Build It",
-                description: "Our team creates your custom automation using the latest AI and integration tools",
-                icon: Settings,
-                gradient: "from-pink-500 to-red-600"
-              },
-              {
-                step: "04",
                 title: "You Get Results",
-                description: "Access your live automation, view analytics, and download results from your dashboard",
+                description: "Access your live automation and view results",
                 icon: TrendingUp,
                 gradient: "from-green-500 to-blue-600"
               }
@@ -320,149 +232,13 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* Features Grid */}
-      <section className="py-20 px-4 relative">
-        <div className="container mx-auto">
-          <div className="text-center mb-16 animate-slide-up">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              <span className="gradient-text">What You Get</span>
-            </h2>
-            <p className="text-gray-300 text-xl max-w-3xl mx-auto">
-              Professional automation solutions delivered to your dashboard
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Brain,
-                title: "AI-Powered Workflows",
-                description: "Custom automations built with the latest AI technology and machine learning capabilities.",
-                gradient: "from-blue-500 to-purple-600"
-              },
-              {
-                icon: Shield,
-                title: "Enterprise Security",
-                description: "Bank-level encryption and SOC 2 compliance. Your data stays protected at all times.",
-                gradient: "from-green-500 to-blue-600"
-              },
-              {
-                icon: Globe,
-                title: "500+ Tool Integrations",
-                description: "We connect any tool with an API - Slack, Gmail, Salesforce, CRMs, databases, and more.",
-                gradient: "from-purple-500 to-pink-600"
-              },
-              {
-                icon: BarChart3,
-                title: "Real-time Analytics",
-                description: "Live dashboards showing your automation performance, data generated, and ROI metrics.",
-                gradient: "from-orange-500 to-red-600"
-              },
-              {
-                icon: Clock,
-                title: "24/7 Monitoring",
-                description: "Your automations run continuously with instant alerts and automatic error handling.",
-                gradient: "from-pink-500 to-purple-600"
-              },
-              {
-                icon: TrendingUp,
-                title: "Scalable Results",
-                description: "Start small and scale up. Our automations grow with your business needs.",
-                gradient: "from-indigo-500 to-blue-600"
-              }
-            ].map((feature, index) => (
-              <Card 
-                key={index} 
-                className="glass-effect hover:bg-white/10 hover-scale hover-glow group animate-slide-up border-white/10"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <CardHeader className="pb-4">
-                  <div className={`w-16 h-16 bg-gradient-to-r ${feature.gradient} rounded-3xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110`}>
-                    <feature.icon className="w-8 h-8 text-white" />
-                  </div>
-                  <CardTitle className="text-xl font-bold text-white transition-all duration-300 group-hover:gradient-text">
-                    {feature.title}
-                  </CardTitle>
-                  <CardDescription className="text-gray-300 leading-relaxed">
-                    {feature.description}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section id="testimonials" className="py-20 px-4 relative">
-        <div className="container mx-auto">
-          <div className="text-center mb-16 animate-slide-up">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              <span className="gradient-text">What Our Customers Say</span>
-            </h2>
-            <p className="text-gray-300 text-xl max-w-3xl mx-auto">
-              Real results from real businesses using our automation solutions
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            <Card className="glass-effect border-white/10 hover-glow animate-slide-up">
-              <CardContent className="p-8 md:p-12 text-center">
-                <div className="flex justify-center mb-6">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
-                  ))}
-                </div>
-                <blockquote className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
-                  "{testimonials[currentTestimonial].content}"
-                </blockquote>
-                <div className="flex items-center justify-center space-x-4">
-                  <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
-                    {testimonials[currentTestimonial].avatar}
-                  </div>
-                  <div className="text-left">
-                    <div className="font-semibold text-white text-lg">
-                      {testimonials[currentTestimonial].name}
-                    </div>
-                    <div className="text-gray-400">
-                      {testimonials[currentTestimonial].role}
-                    </div>
-                    <div className="text-purple-400 text-sm">
-                      {testimonials[currentTestimonial].company}
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Testimonial indicators */}
-            <div className="flex justify-center space-x-2 mt-8">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentTestimonial 
-                      ? 'bg-purple-500 scale-125' 
-                      : 'bg-gray-600 hover:bg-gray-500'
-                  }`}
-                  onClick={() => setCurrentTestimonial(index)}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Pricing Section */}
       <section id="pricing" className="py-20 px-4 relative">
         <div className="container mx-auto">
-          <div className="text-center mb-16 animate-slide-up">
+          <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               <span className="gradient-text">Simple, Transparent Pricing</span>
             </h2>
-            <p className="text-gray-300 text-xl">
-              Pay for results, not complexity
-            </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -474,9 +250,7 @@ export function LandingPage() {
                 features: [
                   "1 automation consultation/month",
                   "Basic automation templates",
-                  "Email support",
-                  "Dashboard access",
-                  "Basic analytics"
+                  "Email support"
                 ],
                 popular: false,
                 automationQuote: "Starting at $297 per automation"
@@ -488,9 +262,7 @@ export function LandingPage() {
                 features: [
                   "5 automation consultations/month",
                   "Priority consultation scheduling",
-                  "Advanced automation templates",
                   "Dedicated automation specialist",
-                  "Advanced analytics & reporting",
                   "Priority support"
                 ],
                 popular: true,
@@ -503,10 +275,7 @@ export function LandingPage() {
                 features: [
                   "Unlimited consultations",
                   "Dedicated automation team",
-                  "24/7 priority support",
-                  "Custom integrations",
-                  "SLA guarantees",
-                  "On-site consultation available"
+                  "24/7 priority support"
                 ],
                 popular: false,
                 automationQuote: "Volume pricing available"
@@ -570,90 +339,21 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section id="faq" className="py-20 px-4 relative">
-        <div className="container mx-auto max-w-4xl">
-          <div className="text-center mb-16 animate-slide-up">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              <span className="gradient-text">Frequently Asked Questions</span>
-            </h2>
-            <p className="text-gray-300 text-xl">
-              Everything you need to know about our automation service
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            {[
-              {
-                question: "How long does it take to build my automation?",
-                answer: "Most automations are delivered within 1-3 weeks depending on complexity. Simple workflows (1-3 integrations) typically take 1 week, while complex AI-powered automations may take 2-3 weeks. We provide estimated timelines during consultation."
-              },
-              {
-                question: "What if my automation doesn't work as expected?",
-                answer: "All automations come with 30 days of free adjustments and lifetime support. We monitor all automations 24/7 and provide immediate fixes for any issues. Our success rate is 98.5%."
-              },
-              {
-                question: "Can you integrate with tools not on your list?",
-                answer: "Yes! We can integrate with any tool that has an API or webhook capability. Custom integrations may require additional development time, which we'll discuss during consultation."
-              },
-              {
-                question: "How much do automations cost?",
-                answer: "Automation costs vary based on complexity, integrations, and requirements. Simple automations start at $297, while complex AI-powered solutions can range from $1,000-$3,000+. We provide detailed quotes after consultation."
-              },
-              {
-                question: "Do I need technical knowledge to use your service?",
-                answer: "Not at all! We handle all the technical work. You just need to describe what you want to automate, and we'll build it for you. Our dashboard is designed for non-technical users."
-              },
-              {
-                question: "What happens to my data?",
-                answer: "Your data is encrypted and secure. We're SOC 2 compliant and follow enterprise-grade security practices. We only access data necessary for automation functionality and never share it with third parties."
-              }
-            ].map((faq, index) => (
-              <Card 
-                key={index}
-                className="glass-effect border-white/10 hover:border-purple-500/30 hover-scale animate-slide-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <CardHeader>
-                  <CardTitle className="text-lg text-white">{faq.question}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-300 leading-relaxed">{faq.answer}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="py-20 px-4 relative">
         <div className="container mx-auto text-center max-w-4xl">
-          <div className="glass-effect rounded-3xl p-12 hover-glow animate-slide-up">
+          <div className="glass-effect rounded-3xl p-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               <span className="gradient-text">Ready to automate your business?</span>
             </h2>
-            <p className="text-xl text-gray-300 mb-8">
-              Join hundreds of businesses already scaling with our custom automation solutions
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
-                className="text-xl px-12 py-6 btn-glow bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 hover-scale hover-glow"
-                onClick={() => setAuthModal('signup')}
-              >
-                Request Your First Automation
-                <Rocket className="ml-3 w-6 h-6" />
-              </Button>
-              <Button 
-                size="lg"
-                variant="outline" 
-                className="text-xl px-12 py-6 border-white/20 hover:bg-white/10 text-gray-300 hover:text-white"
-              >
-                <Headphones className="mr-3 w-6 h-6" />
-                Talk to Sales
-              </Button>
-            </div>
+            <Button 
+              size="lg" 
+              className="text-xl px-12 py-6 btn-glow bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+              onClick={() => setAuthModal('signup')}
+            >
+              Get Started Free
+              <Rocket className="ml-3 w-6 h-6" />
+            </Button>
           </div>
         </div>
       </section>
@@ -661,55 +361,26 @@ export function LandingPage() {
       {/* Footer */}
       <footer className="py-12 px-4 border-t border-white/10 glass-effect">
         <div className="container mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
-                  <Truck className="w-5 h-5 text-white" />
-                </div>
-                <span className="font-semibold gradient-text">Shipra AI</span>
-              </div>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                We ship custom automation solutions so you can focus on selling and growing your business.
-              </p>
+          <div className="flex items-center justify-center space-x-3 mb-6">
+            <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+              <Truck className="w-5 h-5 text-white" />
             </div>
-            <div>
-              <h4 className="font-semibold text-white mb-4">Product</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Integrations</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">API</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold text-white mb-4">Company</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">About</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold text-white mb-4">Support</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Documentation</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Status</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Security</a></li>
-              </ul>
-            </div>
+            <span className="font-semibold gradient-text text-xl">Shipra AI</span>
           </div>
-          <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/10">
-            <p className="text-sm text-gray-400 mb-4 md:mb-0">
-              © 2025 Shipra AI & Automation LLC. All rights reserved.
-            </p>
-            <div className="flex items-center space-x-6 text-sm text-gray-400">
-              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-              <a href="#" className="hover:text-white transition-colors">Cookie Policy</a>
-            </div>
+          <p className="text-center text-gray-400 text-sm">
+            © 2025 Shipra AI & Automation LLC. All rights reserved.
+          </p>
+        </div>
+      </footer>
+
+      <AuthModal 
+        mode={authModal} 
+        onClose={() => setAuthModal(null)} 
+      />
+    </div>
+  );
+}
+
           </div>
         </div>
       </footer>

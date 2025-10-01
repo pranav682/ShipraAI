@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -9,8 +9,14 @@ import { AuthModal } from '@/components/auth/auth-modal';
 
 export function LandingPage() {
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
+    if (typeof window === 'undefined') return;
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -30,13 +36,13 @@ export function LandingPage() {
             <nav className="hidden md:flex items-center space-x-8">
               <button 
                 onClick={() => scrollToSection('features')}
-                className="text-gray-600 hover:text-gray-900 transition-colors"
+                className={`text-gray-600 hover:text-gray-900 transition-colors ${!isMounted ? 'pointer-events-none' : ''}`}
               >
                 Features
               </button>
               <button 
                 onClick={() => scrollToSection('pricing')}
-                className="text-gray-600 hover:text-gray-900 transition-colors"
+                className={`text-gray-600 hover:text-gray-900 transition-colors ${!isMounted ? 'pointer-events-none' : ''}`}
               >
                 Pricing
               </button>

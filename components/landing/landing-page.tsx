@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, CheckCircle, Zap, Users, BarChart3, Shield } from 'lucide-react';
+import { ArrowRight, CircleCheck as CheckCircle, Zap, Users, ChartBar as BarChart3, Shield } from 'lucide-react';
 import { AuthModal } from '@/components/auth/auth-modal';
 
 export function LandingPage() {

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -8,15 +8,9 @@ import { ArrowRight, CircleCheck as CheckCircle, Zap, Users, ChartBar as BarChar
 import { AuthModal } from '@/components/auth/auth-modal';
 
 export function LandingPage() {
-  const [showAuthModal, setShowAuthModal] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const [showAuthModal, setShowAuthModal] = useState<'login' | 'signup' | null>(null);
 
   const scrollToSection = (sectionId: string) => {
-    if (typeof window === 'undefined') return;
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -36,25 +30,25 @@ export function LandingPage() {
             <nav className="hidden md:flex items-center space-x-8">
               <button 
                 onClick={() => scrollToSection('features')}
-                className={`text-gray-600 hover:text-gray-900 transition-colors ${!isMounted ? 'pointer-events-none' : ''}`}
+                className="text-gray-600 hover:text-gray-900 transition-colors"
               >
                 Features
               </button>
               <button 
                 onClick={() => scrollToSection('pricing')}
-                className={`text-gray-600 hover:text-gray-900 transition-colors ${!isMounted ? 'pointer-events-none' : ''}`}
+                className="text-gray-600 hover:text-gray-900 transition-colors"
               >
                 Pricing
               </button>
               <Button 
-                onClick={() => setShowAuthModal(true)}
+                onClick={() => setShowAuthModal('login')}
                 variant="outline"
                 size="sm"
               >
                 Sign In
               </Button>
               <Button 
-                onClick={() => setShowAuthModal(true)}
+                onClick={() => setShowAuthModal('signup')}
                 size="sm"
               >
                 Get Started
@@ -81,7 +75,7 @@ export function LandingPage() {
           <Button 
             size="lg" 
             className="text-lg px-8 py-6"
-            onClick={() => setShowAuthModal(true)}
+            onClick={() => setShowAuthModal('signup')}
           >
             Start Automating Today
             <ArrowRight className="ml-2 h-5 w-5" />
@@ -206,7 +200,7 @@ export function LandingPage() {
                     Email support
                   </li>
                 </ul>
-                <Button className="w-full mt-6" onClick={() => setShowAuthModal(true)}>
+                <Button className="w-full mt-6" onClick={() => setShowAuthModal('signup')}>
                   Get Started
                 </Button>
               </CardContent>
@@ -240,7 +234,7 @@ export function LandingPage() {
                     Priority support
                   </li>
                 </ul>
-                <Button className="w-full mt-6" onClick={() => setShowAuthModal(true)}>
+                <Button className="w-full mt-6" onClick={() => setShowAuthModal('signup')}>
                   Get Started
                 </Button>
               </CardContent>
@@ -299,9 +293,7 @@ export function LandingPage() {
       </footer>
 
       {/* Auth Modal */}
-      {showAuthModal && (
-        <AuthModal onClose={() => setShowAuthModal(false)} />
-      )}
+      <AuthModal mode={showAuthModal} onClose={() => setShowAuthModal(null)} />
     </div>
   );
 }
